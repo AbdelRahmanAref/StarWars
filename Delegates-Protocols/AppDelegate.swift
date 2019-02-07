@@ -7,15 +7,34 @@
 //
 
 import UIKit
+import Firebase
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        UIApplication.shared.statusBarStyle = .lightContent
+
+        FirebaseApp.configure()
+
+        // For iOS 10 display notification (sent via APNS)
+        UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+
+        application.registerForRemoteNotifications()
+
+        if let token = InstanceID.instanceID().token(){
+            print("\t\t\t\t#### Token ####\n\(token)\n\t\t\t\t#############")
+        }
+
         return true
     }
 

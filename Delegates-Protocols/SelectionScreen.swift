@@ -7,29 +7,29 @@
 //
 
 import UIKit
+//MARK:- Delegate and protocol communication
+//protocol SideSelectionDelegate {
+//    func didTapChoice(image: UIImage, name: String, color: UIColor)
+//}
 
 class SelectionScreen: UIViewController {
+//    var selectionDelegate: SideSelectionDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func imperialButtonTapped(_ sender: UIButton) {
+//        selectionDelegate.didTapChoice(image: UIImage(named: "vader")!, name: "Darth Vader", color: .red)
+        let name = Notification.Name(rawValue: darkNotificationKey)
+        NotificationCenter.default.post(name: name, object: nil)
+        dismiss(animated: true, completion: nil)
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func rebelButtonTapped(_ sender: UIButton) {
+//        selectionDelegate.didTapChoice(image: UIImage(named: "luke")!, name: "Luke Skywalker", color: .cyan)
+        let name = Notification.Name(rawValue: lightNotificationKey)
+        NotificationCenter.default.post(name: name, object: nil)
+        dismiss(animated: true, completion: nil)
     }
-    */
-
 }
